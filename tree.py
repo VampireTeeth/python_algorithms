@@ -72,3 +72,42 @@ class Tree:
     Return True if the tree is empty
     """
     return len(self) == 0
+
+
+
+class BinaryTree(Tree):
+  """
+  An abstraction of binary tree data structure
+  """
+  def left(self, p):
+    """
+    Return a Position that represents the left child of Position p
+    """
+    raise NotImplementedError('must be implemented by subclass')
+
+  def right(self, p):
+    """
+    Return a Position that represents the right child of Position p
+    """
+    raise NotImplementedError('must be implemented by subclass')
+
+
+  def sibling(self, p):
+    """
+    Return a Position that represents the sibling of Position p
+    or None if no sibling found
+    """
+    parent = self.parent(p)
+    if parent is None:
+      return None
+    else:
+      if p == self.left(parent):
+        return self.right(parent)
+      else:
+        return self.left(parent)
+
+  def children(self, p):
+    if self.left(p) is not None:
+      yield self.left(p)
+    if self.right(p) is not None:
+      yield self.right(p)
